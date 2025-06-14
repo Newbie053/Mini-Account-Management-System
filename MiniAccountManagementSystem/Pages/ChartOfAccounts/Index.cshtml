@@ -30,50 +30,63 @@
     ViewData["Title"] = "Chart of Accounts";
 }
 
-<h2>Chart of Accounts</h2>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">📘 Chart of Accounts</h2>
 
-<form method="post">
-    <div>
-        <label>Account Name</label>
-        <input asp-for="NewAccount.AccountName" />
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">➕ Add New Account</div>
+        <div class="card-body">
+            <form method="post" class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="NewAccount.AccountName" class="form-label">Account Name</label>
+                    <input asp-for="NewAccount.AccountName" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="NewAccount.ParentAccountId" class="form-label">Parent Account ID (optional)</label>
+                    <input asp-for="NewAccount.ParentAccountId" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="NewAccount.AccountType" class="form-label">Account Type</label>
+                    <select asp-for="NewAccount.AccountType" class="form-select">
+                        <option>Asset</option>
+                        <option>Liability</option>
+                        <option>Income</option>
+                        <option>Expense</option>
+                        <option>Equity</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-success">Add Account</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div>
-        <label>Parent Account ID (optional)</label>
-        <input asp-for="NewAccount.ParentAccountId" />
-    </div>
-    <div>
-        <label>Account Type</label>
-        <select asp-for="NewAccount.AccountType">
-            <option>Asset</option>
-            <option>Liability</option>
-            <option>Income</option>
-            <option>Expense</option>
-            <option>Equity</option>
-        </select>
-    </div>
-    <button type="submit">Add Account</button>
-</form>
 
-<hr />
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">📋 Existing Accounts</div>
+        <div class="card-body p-0">
+            <table class="table table-bordered table-hover m-0">
+                <thead class="table-light text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Parent</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var acct in Model.Accounts)
+                    {
+                        <tr class="text-center">
+                            <td>@acct.AccountId</td>
+                            <td>@acct.AccountName</td>
+                            <td>@acct.ParentAccountId</td>
+                            <td>@acct.AccountType</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Parent</th>
-            <th>Type</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var acct in Model.Accounts)
-        {
-            <tr>
-                <td>@acct.AccountId</td>
-                <td>@acct.AccountName</td>
-                <td>@acct.ParentAccountId</td>
-                <td>@acct.AccountType</td>
-            </tr>
-        }
-    </tbody>
-</table>

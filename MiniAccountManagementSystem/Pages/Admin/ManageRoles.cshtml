@@ -4,16 +4,34 @@
     ViewData["Title"] = "Manage Roles";
 }
 
-<h2>Manage Roles</h2>
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">🔐 Manage Roles</h2>
 
-<form method="post">
-    <input asp-for="RoleName" placeholder="Role Name" />
-    <button type="submit">Create Role</button>
-</form>
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form method="post" class="row g-3">
+                <div class="col-md-8">
+                    <input asp-for="RoleName" class="form-control" placeholder="Enter role name" />
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary w-100">➕ Create Role</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-<ul>
-    @foreach (var role in Model.Roles)
-    {
-        <li>@role.Name</li>
-    }
-</ul>
+    <div class="card shadow-sm">
+        <div class="card-header bg-secondary text-white">
+            Existing Roles
+        </div>
+        <ul class="list-group list-group-flush">
+            @foreach (var role in Model.Roles)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>@role.Name</span>
+                    <span class="badge bg-info text-dark">System Role</span>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

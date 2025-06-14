@@ -5,37 +5,45 @@
     ViewData["Title"] = "Manage Users";
 }
 
-<h2>Manage Users</h2>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">👥 Manage Users</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Email</th>
-            <th>Current Role</th>
-            <th>Change Role</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model.Users)
-        {
-            <tr>
-                <td>@user.Email</td>
-                <td>@user.CurrentRole</td>
-                <td>
-                    <form method="post">
-                        <input type="hidden" name="UserId" value="@user.Id" />
-                        <select name="SelectedRole">
-                            @foreach (var role in Model.AllRoles)
-                            {
-                                <option value="@role" selected="@(role == user.CurrentRole)">
-                                    @role
-                                </option>
-                            }
-                        </select>
-                        <button type="submit">Update</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-bordered table-hover align-middle text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">📧 Email</th>
+                        <th scope="col">🎓 Current Role</th>
+                        <th scope="col">🔄 Change Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Users)
+                    {
+                        <tr>
+                            <td>@user.Email</td>
+                            <td>
+                                <span class="badge bg-info text-dark">@user.CurrentRole</span>
+                            </td>
+                            <td>
+                                <form method="post" class="d-flex justify-content-center align-items-center gap-2">
+                                    <input type="hidden" name="UserId" value="@user.Id" />
+                                    <select name="SelectedRole" class="form-select w-auto">
+                                        @foreach (var role in Model.AllRoles)
+                                        {
+                                            <option value="@role" selected="@(role == user.CurrentRole)">
+                                                @role
+                                            </option>
+                                        }
+                                    </select>
+                                    <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

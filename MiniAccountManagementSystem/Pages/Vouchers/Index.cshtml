@@ -4,35 +4,36 @@
     ViewData["Title"] = "Voucher List";
 }
 
-<h2>Voucher List</h2>
+<div class="container mt-5">
+    <h2 class="mb-4 text-primary">📋 Voucher List</h2>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Type</th>
-            <th>Date</th>
-            <th>Reference No</th>
-            <th>Total Debit</th>
-            <th>Total Credit</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var voucher in Model.Vouchers)
-        {
+    <table class="table table-striped table-bordered table-hover align-middle">
+        <thead class="table-dark">
             <tr>
-                <td>
-                    <a asp-page="Details" asp-route-id="@voucher.VoucherId">
-                        @voucher.VoucherId
-                    </a>
-                </td>
-
-                <td>@voucher.VoucherType</td>
-                <td>@voucher.Date.ToString("yyyy-MM-dd")</td>
-                <td>@voucher.ReferenceNo</td>
-                <td>@voucher.TotalDebit.ToString("N2")</td>
-                <td>@voucher.TotalCredit.ToString("N2")</td>
+                <th scope="col">ID</th>
+                <th scope="col">Type</th>
+                <th scope="col">Date</th>
+                <th scope="col">Reference No</th>
+                <th scope="col" class="text-end">Total Debit</th>
+                <th scope="col" class="text-end">Total Credit</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var voucher in Model.Vouchers)
+            {
+                <tr>
+                    <td>
+                        <a asp-page="Details" asp-route-id="@voucher.VoucherId" class="text-decoration-none">
+                            @voucher.VoucherId
+                        </a>
+                    </td>
+                    <td>@voucher.VoucherType</td>
+                    <td>@voucher.Date.ToString("yyyy-MM-dd")</td>
+                    <td>@voucher.ReferenceNo</td>
+                    <td class="text-end">@voucher.TotalDebit.ToString("N2")</td>
+                    <td class="text-end">@voucher.TotalCredit.ToString("N2")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
