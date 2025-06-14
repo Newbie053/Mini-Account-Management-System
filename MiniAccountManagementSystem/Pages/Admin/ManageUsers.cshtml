@@ -1,0 +1,41 @@
+﻿@page
+@model MiniAccountManagementSystem.Pages.Admin.ManageUsersModel
+@using Microsoft.AspNetCore.Identity
+@{
+    ViewData["Title"] = "Manage Users";
+}
+
+<h2>Manage Users</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Current Role</th>
+            <th>Change Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.CurrentRole</td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="UserId" value="@user.Id" />
+                        <select name="SelectedRole">
+                            @foreach (var role in Model.AllRoles)
+                            {
+                                <option value="@role" selected="@(role == user.CurrentRole)">
+                                    @role
+                                </option>
+                            }
+                        </select>
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

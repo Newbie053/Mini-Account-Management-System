@@ -1,0 +1,59 @@
+﻿@page
+@model MiniAccountManagementSystem.Pages.Vouchers.CreateModel
+@{
+    ViewData["Title"] = "Create Voucher";
+}
+
+<h2>Create Voucher</h2>
+
+<form method="post">
+    <div>
+        <label>Voucher Type:</label>
+        <input asp-for="Voucher.VoucherType" />
+    </div>
+    <div>
+        <label>Date:</label>
+        <input asp-for="Voucher.Date" type="date" />
+    </div>
+    <div>
+        <label>Reference No:</label>
+        <input asp-for="Voucher.ReferenceNo" />
+    </div>
+
+    <hr />
+    <h4>Voucher Entries</h4>
+
+    <div id="entries">
+        <div class="entry">
+            <select name="Voucher.Entries[0].AccountId">
+                @foreach (var acct in Model.AccountList)
+                {
+                    <option value="@acct.AccountId">@acct.AccountName</option>
+                }
+            </select>
+            <input name="Voucher.Entries[0].Debit" placeholder="Debit" />
+            <input name="Voucher.Entries[0].Credit" placeholder="Credit" />
+        </div>
+    </div>
+
+    <button type="button" onclick="addRow()">Add Row</button>
+    <br /><br />
+    <button type="submit">Submit Voucher</button>
+</form>
+
+@section Scripts {
+    <script>
+        let index = 1;
+        function addRow() {
+            const template = document.querySelector('.entry');
+            const clone = template.cloneNode(true);
+            clone.querySelectorAll('input, select').forEach(el => {
+                const name = el.getAttribute('name');
+                el.setAttribute('name', name.replace('[0]', `[${index}]`));
+                el.value = '';
+            });
+            document.getElementById('entries').appendChild(clone);
+            index++;
+        }
+    </script>
+}

@@ -1,0 +1,19 @@
+﻿@page
+@model ManageRolesModel
+@{
+    ViewData["Title"] = "Manage Roles";
+}
+
+<h2>Manage Roles</h2>
+
+<form method="post">
+    <input asp-for="RoleName" placeholder="Role Name" />
+    <button type="submit">Create Role</button>
+</form>
+
+<ul>
+    @foreach (var role in Model.Roles)
+    {
+        <li>@role.Name</li>
+    }
+</ul>

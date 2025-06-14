@@ -1,0 +1,79 @@
+﻿@* @page
+@model MiniAccountManagementSystem.Pages.ChartOfAccounts.IndexModel
+@{
+    ViewData["Title"] = "Chart of Accounts";
+}
+
+<h2>Chart of Accounts</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Account Name</th>
+            <th>Parent Account Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var account in Model.Accounts)
+        {
+            <tr>
+                <td>@account.Name</td>
+                <td>@account.ParentId</td>
+            </tr>
+        }
+    </tbody>
+</table> *@
+
+@page
+@model MiniAccountManagementSystem.Pages.ChartOfAccounts.IndexModel
+@{
+    ViewData["Title"] = "Chart of Accounts";
+}
+
+<h2>Chart of Accounts</h2>
+
+<form method="post">
+    <div>
+        <label>Account Name</label>
+        <input asp-for="NewAccount.AccountName" />
+    </div>
+    <div>
+        <label>Parent Account ID (optional)</label>
+        <input asp-for="NewAccount.ParentAccountId" />
+    </div>
+    <div>
+        <label>Account Type</label>
+        <select asp-for="NewAccount.AccountType">
+            <option>Asset</option>
+            <option>Liability</option>
+            <option>Income</option>
+            <option>Expense</option>
+            <option>Equity</option>
+        </select>
+    </div>
+    <button type="submit">Add Account</button>
+</form>
+
+<hr />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Parent</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var acct in Model.Accounts)
+        {
+            <tr>
+                <td>@acct.AccountId</td>
+                <td>@acct.AccountName</td>
+                <td>@acct.ParentAccountId</td>
+                <td>@acct.AccountType</td>
+            </tr>
+        }
+    </tbody>
+</table>
