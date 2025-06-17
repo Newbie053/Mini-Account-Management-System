@@ -1,0 +1,64 @@
+﻿@page "{id:int}"
+@model MiniAccountManagementSystem.Pages.Vouchers.DetailsModel
+@{
+    ViewData["Title"] = "Voucher Details";
+    var showSuccess = Request.Query["created"] == "true";
+}
+
+
+<div class="container mt-5">
+    @if (showSuccess)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            ✅ Voucher created successfully!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">📄 Voucher Details</h4>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <strong>Voucher ID:</strong> @Model.Voucher.VoucherId
+                </div>
+                <div class="col-md-6">
+                    <strong>Reference:</strong> @Model.Voucher.ReferenceNo
+                </div>
+                <div class="col-md-6 mt-2">
+                    <strong>Type:</strong> @Model.Voucher.VoucherType
+                </div>
+                <div class="col-md-6 mt-2">
+                    <strong>Date:</strong> @Model.Voucher.Date.ToString("yyyy-MM-dd")
+                </div>
+            </div>
+
+            <h5 class="mt-4">Entries</h5>
+            <table class="table table-bordered table-striped mt-2">
+                <thead class="table-light">
+                    <tr>
+                        <th>Entry ID</th>
+                        <th>Account</th>
+                        <th>Debit</th>
+                        <th>Credit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var entry in Model.Entries)
+                    {
+                        <tr>
+                            <td>@entry.EntryId</td>
+                            <td>@entry.AccountName</td>
+                            <td>@entry.Debit.ToString("N2")</td>
+                            <td>@entry.Credit.ToString("N2")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <a asp-page="Index" class="btn btn-secondary mt-3">← Back to List</a>
+        </div>
+    </div>
+</div>
